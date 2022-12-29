@@ -1,6 +1,19 @@
 import { nanoid } from 'nanoid';
 
-const noteReducer = (state = [], action) => {
+const initialState = [
+  {
+    content: 'reducer defines how redux store works',
+    important: true,
+    id: nanoid(),
+  },
+  {
+    content: 'state of store can contain any data',
+    important: false,
+    id: nanoid()
+  }
+];
+
+const noteReducer = (state = initialState, action) => {
   switch(action.type) {
     case 'NEW_NOTE':
       return [...state, action.data];
