@@ -1,5 +1,8 @@
 import { nanoid } from 'nanoid';
-import { createSlice } from '@reduxjs/toolkit';
+import toolkit from '@reduxjs/toolkit';
+
+// to pass vitest because direct import is not working
+const { createSlice } = toolkit;
 
 const initialState = [
   {
