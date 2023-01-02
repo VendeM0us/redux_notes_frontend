@@ -29,8 +29,9 @@ const Notes = () => {
           key={note.id}
           note={note}
           handleClick={async () => {
-            await noteService.update(note.id, { important: !note.important });
-            dispatch(toggleImportanceOf(note.id));
+            const updatedNote = await noteService
+              .update(note.id, { important: !note.important });
+            dispatch(toggleImportanceOf(updatedNote));
           }
           }
         />

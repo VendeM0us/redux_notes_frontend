@@ -13,14 +13,9 @@ const noteSlice = createSlice({
       state.push(action.payload);
     },
     toggleImportanceOf(state, action) {
-      const id = action.payload;
-      const noteToChange = state.find(n => n.id === id);
-      const changedNote = {
-        ...noteToChange,
-        important: !noteToChange.important
-      };
+      const changedNote = action.payload;
       return state.map(note =>
-        note.id !== id ? note : changedNote
+        note.id !== changedNote.id ? note : changedNote
       );
     },
     appendNote(state, action) {
