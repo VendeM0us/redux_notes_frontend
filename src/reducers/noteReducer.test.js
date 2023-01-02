@@ -1,5 +1,5 @@
 import { describe, test, expect } from 'vitest';
-import noteReducer from "./noteReducer";
+import noteReducer from './noteReducer';
 import deepFreeze from 'deep-freeze';
 
 describe('noteReducer', () => {
@@ -34,7 +34,7 @@ describe('noteReducer', () => {
     const action = {
       type: 'notes/toggleImportanceOf',
       payload: 2
-    }
+    };
 
     deepFreeze(state);
     const newState = noteReducer(state, action);

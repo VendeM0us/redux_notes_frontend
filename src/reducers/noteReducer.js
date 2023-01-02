@@ -1,33 +1,16 @@
-import { nanoid } from 'nanoid';
-import toolkit from '@reduxjs/toolkit';
+// import { nanoid } from 'nanoid';
+import * as toolkit from '@reduxjs/toolkit';
 
 // to pass vitest because direct import is not working
+// need also to remove aliasing (* as)
 const { createSlice } = toolkit;
-
-const initialState = [
-  {
-    content: 'reducer defines how redux store works',
-    important: true,
-    id: nanoid(),
-  },
-  {
-    content: 'state of store can contain any data',
-    important: false,
-    id: nanoid()
-  }
-];
 
 const noteSlice = createSlice({
   name: 'notes',
-  initialState,
+  initialState: [],
   reducers: {
     createNote(state, action) {
-      const content = action.payload;
-      state.push({
-        content,
-        important: false,
-        id: nanoid(),
-      })
+      state.push(action.payload);
     },
     toggleImportanceOf(state, action) {
       const id = action.payload;
@@ -38,10 +21,16 @@ const noteSlice = createSlice({
       };
       return state.map(note =>
         note.id !== id ? note : changedNote
-      )
-    }
+      );
+    },
+    appendNote(state, action) {
+      state.push(action.payload);
+    },
+    setNotes(state, action) {
+      return action.payload;
+    },
   },
 });
 
-export const { createNote, toggleImportanceOf } = noteSlice.actions;
+export const { createNote, toggleImportanceOf, appendNote, setNotes } = noteSlice.actions;
 export default noteSlice.reducer;

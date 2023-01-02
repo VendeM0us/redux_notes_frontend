@@ -1,5 +1,7 @@
 import { useDispatch, useSelector } from 'react-redux';
 import { toggleImportanceOf } from '../reducers/noteReducer';
+import noteService from '../services/notes';
+import PropTypes from 'prop-types';
 
 const Note = ({ note, handleClick }) => (
   <li onClick={handleClick}>
@@ -22,17 +24,27 @@ const Notes = () => {
 
   return (
     <ul>
-      {notes.map(note => 
+      {notes.map(note =>
         <Note
           key={note.id}
           note={note}
-          handleClick={() =>
-            dispatch(toggleImportanceOf(note.id))
+          handleClick={async () => {
+            await noteService.update(note.id, { important: !note.important });
+            dispatch(toggleImportanceOf(note.id));
           }
-        />  
+          }
+        />
       )}
     </ul>
   );
-}
+};
+
+Note.propTypes = {
+  note: PropTypes.shape({
+    content: PropTypes.string,
+    important: PropTypes.bool,
+  }),
+  handleClick: PropTypes.func
+};
 
 export default Notes;
