@@ -16,6 +16,7 @@ specifiers:
   react-dom: ^18.2.0
   react-redux: ^8.0.5
   redux: ^4.2.0
+  redux-thunk: ^2.4.2
   vite: ^4.0.0
   vitest: ^0.26.2
 
@@ -28,6 +29,7 @@ dependencies:
   react-dom: 18.2.0_react@18.2.0
   react-redux: 8.0.5_gm3gubmwja4o7q6fr6adx3fpz4
   redux: 4.2.0
+  redux-thunk: 2.4.2_redux@4.2.0
 
 devDependencies:
   '@types/react': 18.0.26

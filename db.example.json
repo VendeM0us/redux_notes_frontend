@@ -7,8 +7,13 @@
     },
     {
       "content": "state changes are made with actions",
-      "important": true,
+      "important": false,
       "id": 2
+    },
+    {
+      "content": "redux thunk helps us write action creators that return a function instead of an action",
+      "important": false,
+      "id": 3
     }
   ]
 }
