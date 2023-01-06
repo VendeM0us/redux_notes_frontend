@@ -1,4 +1,4 @@
-import { useDispatch, useSelector } from 'react-redux';
+import { connect } from 'react-redux';
 import { toggleImportanceOf } from '../reducers/noteReducer';
 import PropTypes from 'prop-types';
 
@@ -9,28 +9,14 @@ const Note = ({ note, handleClick }) => (
   </li>
 );
 
-const Notes = () => {
-  const dispatch = useDispatch();
-  const notes = useSelector(({ filter, notes }) => {
-    if (filter === 'ALL') {
-      return notes;
-    }
-
-    return filter === 'IMPORTANT'
-      ? notes.filter(note => note.important)
-      : notes.filter(note => !note.important);
-  });
-
+const Notes = (props) => {
   return (
     <ul>
-      {notes.map(note =>
+      {props.notes.map(note =>
         <Note
           key={note.id}
           note={note}
-          handleClick={async () => {
-            dispatch(toggleImportanceOf(note.id));
-          }
-          }
+          handleClick={() => props.toggleImportanceOf(note.id)}
         />
       )}
     </ul>
@@ -45,4 +31,31 @@ Note.propTypes = {
   handleClick: PropTypes.func
 };
 
-export default Notes;
+Notes.propTypes = {
+  notes: PropTypes.array,
+  toggleImportanceOf: PropTypes.func,
+};
+
+const mapStateToProps = (state) => {
+  if (state.filter === 'ALL') {
+    return {
+      notes: state.notes,
+    };
+  }
+
+  return {
+    notes: (state.filter === 'IMPORTANT'
+      ? state.notes.filter(note => note.important)
+      : state.notes.filter(note => !note.important)
+    ),
+  };
+};
+
+const mapDispatchToProps = {
+  toggleImportanceOf,
+};
+
+export default connect(
+  mapStateToProps,
+  mapDispatchToProps
+)(Notes);
