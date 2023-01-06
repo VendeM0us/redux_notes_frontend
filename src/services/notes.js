@@ -13,9 +13,11 @@ const createNew = async (content) => {
   return response.data;
 };
 
-const update = async (id, updatedObj) => {
-  const response = await axios.patch(`${baseUrl}/${id}`, updatedObj);
+const toggleImportance = async (id) => {
+  const notes = await axios.get(`${baseUrl}/${id}`);
+  const patch = { important: !notes.data.important };
+  const response = await axios.patch(`${baseUrl}/${id}`, patch);
   return response.data;
 };
 
-export default { getAll, createNew, update };
+export default { getAll, createNew, toggleImportance };
